@@ -1,0 +1,44 @@
+[
+  {
+    "scenario_id": "tag-update-low-risk",
+    "plan": "../terraform_plans/tag_update.json",
+    "expected_findings": [],
+    "expected_affected_resources": ["aws_s3_bucket.assets"],
+    "rationale": "A metadata-only tag addition should not trigger a configured risk rule."
+  },
+  {
+    "scenario_id": "delete-shared-database",
+    "plan": "../terraform_plans/delete_shared_database.json",
+    "expected_findings": ["availability:critical"],
+    "expected_affected_resources": ["aws_cloudwatch_alarm.checkout", "aws_db_instance.shared", "aws_ecs_service.checkout"],
+    "rationale": "Deleting a database with declared downstream consumers is a critical availability risk."
+  },
+  {
+    "scenario_id": "reduce-database-connections",
+    "plan": "../terraform_plans/reduce_connection_limit.json",
+    "expected_findings": ["availability:medium"],
+    "expected_affected_resources": ["aws_db_parameter_group.app"],
+    "rationale": "Reducing max_connections can cause saturation; actual workload demand is not supplied."
+  },
+  {
+    "scenario_id": "public-storage-access",
+    "plan": "../terraform_plans/public_access.json",
+    "expected_findings": ["security:high"],
+    "expected_affected_resources": ["aws_s3_bucket_public_access_block.assets"],
+    "rationale": "Disabling a public-access block is a potentially risky security configuration change."
+  },
+  {
+    "scenario_id": "disable-database-encryption",
+    "plan": "../terraform_plans/disable_encryption.json",
+    "expected_findings": ["security:high"],
+    "expected_affected_resources": ["aws_db_instance.app"],
+    "rationale": "Explicitly disabling storage encryption should produce a security finding."
+  },
+  {
+    "scenario_id": "replace-api-instance",
+    "plan": "../terraform_plans/replace_resource.json",
+    "expected_findings": ["availability:high"],
+    "expected_affected_resources": ["aws_instance.api"],
+    "rationale": "Destroy-and-create replacement may interrupt service or risk data loss."
+  }
+]

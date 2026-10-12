@@ -1,0 +1,20 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "resource_changes": [
+    {
+      "address": "aws_db_instance.app",
+      "mode": "managed",
+      "type": "aws_db_instance",
+      "name": "app",
+      "change": {
+        "actions": ["update"],
+        "before": {"storage_encrypted": true},
+        "after": {"storage_encrypted": false},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "after_unknown": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "resource_changes": [
+    {
+      "address": "aws_db_instance.shared",
+      "mode": "managed",
+      "type": "aws_db_instance",
+      "name": "shared",
+      "change": {
+        "actions": ["delete"],
+        "before": {"identifier": "shared-db", "deletion_protection": false},
+        "after": null,
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "after_unknown": {}
+      }
+    }
+  ],
+  "configuration": {
+    "root_module": {
+      "resources": [
+        {"address": "aws_db_instance.shared", "mode": "managed", "type": "aws_db_instance", "name": "shared", "depends_on": []},
+        {"address": "aws_ecs_service.checkout", "mode": "managed", "type": "aws_ecs_service", "name": "checkout", "depends_on": ["aws_db_instance.shared"]},
+        {"address": "aws_cloudwatch_alarm.checkout", "mode": "managed", "type": "aws_cloudwatch_alarm", "name": "checkout", "depends_on": ["aws_ecs_service.checkout"]}
+      ]
+    }
+  }
+}

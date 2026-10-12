@@ -1,0 +1,27 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "resource_changes": [
+    {
+      "address": "aws_db_parameter_group.app",
+      "mode": "managed",
+      "type": "aws_db_parameter_group",
+      "name": "app",
+      "change": {
+        "actions": ["update"],
+        "before": {"parameter": [{"name": "max_connections", "value": "500"}]},
+        "after": {"parameter": [{"name": "max_connections", "value": "80"}]},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "after_unknown": {}
+      }
+    }
+  ],
+  "configuration": {
+    "root_module": {
+      "resources": [
+        {"address": "aws_db_parameter_group.app", "mode": "managed", "type": "aws_db_parameter_group", "name": "app", "depends_on": []}
+      ]
+    }
+  }
+}

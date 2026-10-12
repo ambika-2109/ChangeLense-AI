@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <meta name="description" content="Review Terraform change risk and evidence before deployment." />
+    <title>ChangeLens — Infrastructure change intelligence</title>
+    <link rel="stylesheet" href="/assets/app.css" />
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="ChangeLens home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>change<span class="brand-light">lens</span></span>
+          <span class="brand-ai">AI</span>
+        </a>
+        <div class="topbar-right">
+          <span class="scope-label"><span class="scope-dot"></span>Terraform analysis</span>
+          <span class="api-status" id="api-status"><span class="status-dot"></span><span>Connecting…</span></span>
+        </div>
+      </header>
+
+      <main>
+        <section class="intro">
+          <div class="eyebrow"><span class="eyebrow-line"></span>CHANGE INTELLIGENCE <span class="eyebrow-version">EARLY ACCESS</span></div>
+          <h1>Know the impact<br /><span>before it ships.</span></h1>
+          <p class="intro-copy">Review Terraform changes, trace downstream impact, and get evidence-backed risks before deployment.</p>
+        </section>
+
+        <section class="workspace" aria-label="Terraform plan analysis">
+          <aside class="input-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="step-label">STEP 01</span>
+                <h2>Bring your plan</h2>
+              </div>
+              <span class="format-pill">JSON</span>
+            </div>
+            <p class="panel-copy">Choose a demo scenario, upload a plan, or paste Terraform <span class="mono">show -json</span> output.</p>
+
+            <label class="field-label" for="example-select">Try a sample</label>
+            <div class="select-wrap">
+              <select id="example-select" aria-label="Choose a sample Terraform plan">
+                <option value="delete_shared_database">Delete a shared database</option>
+                <option value="reduce_connection_limit">Reduce database connections</option>
+                <option value="public_access">Disable public-access protection</option>
+                <option value="disable_encryption">Disable database encryption</option>
+                <option value="replace_resource">Replace an API instance</option>
+                <option value="tag_update">Harmless tag update</option>
+              </select>
+              <span class="select-chevron" aria-hidden="true">⌄</span>
+            </div>
+
+            <div class="upload-row">
+              <span class="field-label">Or use your own plan</span>
+              <label class="upload-button" for="plan-file"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V3m0 0L6 7m4-4 4 4M4 12v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-4" /></svg>Upload JSON</label>
+              <input id="plan-file" type="file" accept=".json,application/json" hidden />
+            </div>
+            <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose or drop a Terraform plan JSON file">
+              <div class="drop-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 15v3.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V15" /></svg></div>
+              <div class="drop-text"><strong>Drop your plan here</strong><span id="file-name">or click to browse · JSON up to 10 MB</span></div>
+            </div>
+
+            <div class="editor-heading"><label class="field-label" for="plan-input">Plan payload</label><span class="editor-hint">Marked sensitive values are redacted in reports</span></div>
+            <textarea id="plan-input" spellcheck="false" aria-label="Terraform plan JSON" placeholder="Paste Terraform plan JSON here…"></textarea>
+            <div class="input-footer"><span id="input-feedback" aria-live="polite">Demo plan loaded</span><span class="mono">terraform show -json</span></div>
+            <button class="analyze-button" id="analyze-button" type="button"><span class="button-content"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5v3m0 9v3m7.5-7.5h-3m-9 0h-3m13.8-5.3-2.1 2.1m-6.4 6.4-2.1 2.1m10.6 0-2.1-2.1m-6.4-6.4L5.7 4.7M12.7 7.3l-5.4 5.4" /></svg>Analyze changes</span><span class="button-arrow">↗</span></button>
+            <p class="privacy-note"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5 13 3.5v3.8c0 3.2-2 5.7-5 7.2-3-1.5-5-4-5-7.2V3.5l5-2Z" /><path d="m6 7.7 1.3 1.3L10.5 6" /></svg>Plan is sent to this API for analysis. No infrastructure changes are applied.</p>
+          </aside>
+
+          <section class="results-panel" aria-live="polite" aria-label="Analysis results">
+            <div class="results-topline">
+              <div><span class="step-label">STEP 02</span><h2>Change report</h2></div>
+              <span id="report-state" class="report-state"><span class="state-dot"></span>Waiting for plan</span>
+            </div>
+            <div id="results-content" class="results-content">
+              <div class="empty-state">
+                <div class="empty-art" aria-hidden="true">
+                  <div class="art-ring ring-one"></div><div class="art-ring ring-two"></div>
+                  <div class="art-card"><span class="art-card-top"><i></i><i></i><i></i></span><span class="art-line line-long"></span><span class="art-line line-short"></span><span class="art-risk"><b></b><span></span><span></span></span><span class="art-line line-mid"></span></div>
+                  <span class="art-spark spark-one">✳</span><span class="art-spark spark-two">✦</span>
+                </div>
+                <h3>Your next change,<br />with context.</h3>
+                <p>Run an analysis to see resource changes, blast radius, and risks grounded in your plan.</p>
+                <div class="empty-points"><span><b>01</b> Parse changes</span><span><b>02</b> Trace impact</span><span><b>03</b> Surface evidence</span></div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <footer class="page-footer"><span>ChangeLens AI <span class="footer-sep">/</span> Deterministic analysis preview</span><span>Predictions are signals, not guarantees.</span></footer>
+      </main>
+    </div>
+  </body>
+</html>
