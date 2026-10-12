@@ -21,6 +21,16 @@ function setFeedback(message, isError = false) {
   inputFooter.classList.toggle("error", isError);
 }
 
+function showToast(message, isError = false) {
+  const toast = document.getElementById("upload-toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.toggle("error", isError);
+  toast.classList.add("show");
+  clearTimeout(toast._toastTimer);
+  toast._toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
+}
+
 function setReportState(label, state = "") {
   reportState.className = `report-state ${state}`.trim();
   reportState.lastChild.textContent = label;
@@ -229,8 +239,10 @@ async function readPlanFile(file) {
     planInput.value = text;
     $("#file-name").textContent = file.name;
     setFeedback("File loaded · submit when ready");
+    showToast(`JSON uploaded: ${file.name}`);
   } catch {
     setFeedback("That file is not valid JSON.", true);
+    showToast("Invalid JSON file", true);
   }
 }
 
