@@ -23,6 +23,17 @@ def test_named_demo_plan_is_available() -> None:
     assert response.json()["resource_changes"][0]["address"] == "aws_db_instance.shared"
 
 
+def test_upload_demo_plan_is_available() -> None:
+    response = client.get("/examples/upload_demo")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["resource_changes"][0]["address"] == "aws_db_instance.shared"
+    assert any(
+        change["address"] == "aws_security_group.app"
+        for change in payload["resource_changes"]
+    )
+
+
 def test_unknown_demo_plan_is_not_served() -> None:
     assert client.get("/examples/not-a-demo").status_code == 404
 

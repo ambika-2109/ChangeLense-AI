@@ -1,0 +1,102 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "resource_changes": [
+    {
+      "address": "aws_db_instance.shared",
+      "mode": "managed",
+      "type": "aws_db_instance",
+      "name": "shared",
+      "change": {
+        "actions": ["delete"],
+        "before": {
+          "identifier": "prod-shared-db",
+          "deletion_protection": true,
+          "publicly_accessible": false,
+          "storage_encrypted": true
+        },
+        "after": null,
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "after_unknown": {}
+      }
+    },
+    {
+      "address": "aws_security_group.app",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "app",
+      "change": {
+        "actions": ["update"],
+        "before": {
+          "ingress": [
+            {
+              "from_port": 443,
+              "to_port": 443,
+              "protocol": "tcp",
+              "cidr_blocks": ["10.0.0.0/8"]
+            }
+          ]
+        },
+        "after": {
+          "ingress": [
+            {
+              "from_port": 443,
+              "to_port": 443,
+              "protocol": "tcp",
+              "cidr_blocks": ["0.0.0.0/0"]
+            }
+          ]
+        },
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "after_unknown": {}
+      }
+    },
+    {
+      "address": "aws_ecs_service.checkout",
+      "mode": "managed",
+      "type": "aws_ecs_service",
+      "name": "checkout",
+      "change": {
+        "actions": ["update"],
+        "before": {
+          "desired_count": 3
+        },
+        "after": {
+          "desired_count": 1
+        },
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "after_unknown": {}
+      }
+    }
+  ],
+  "configuration": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_db_instance.shared",
+          "mode": "managed",
+          "type": "aws_db_instance",
+          "name": "shared",
+          "depends_on": []
+        },
+        {
+          "address": "aws_security_group.app",
+          "mode": "managed",
+          "type": "aws_security_group",
+          "name": "app",
+          "depends_on": []
+        },
+        {
+          "address": "aws_ecs_service.checkout",
+          "mode": "managed",
+          "type": "aws_ecs_service",
+          "name": "checkout",
+          "depends_on": ["aws_db_instance.shared", "aws_security_group.app"]
+        }
+      ]
+    }
+  }
+}

@@ -28,6 +28,7 @@ EXAMPLE_PLANS = {
     "disable_encryption": "disable_encryption.json",
     "replace_resource": "replace_resource.json",
     "tag_update": "tag_update.json",
+    "upload_demo": "upload_demo.json",
 }
 
 app.mount("/assets", StaticFiles(directory=STATIC_DIR), name="assets")
