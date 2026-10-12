@@ -45,6 +45,15 @@ button, select, input { -webkit-tap-highlight-color: transparent; }
 .api-status.offline .status-dot { background: #d85761; box-shadow: 0 0 0 3px #ffeded; }
 main { max-width: 1440px; margin: 0 auto; padding: 55px max(5.3vw, 28px) 25px; }
 .intro { margin: 0 auto 37px; max-width: 1180px; }
+.scope-banner { max-width: 1180px; margin: 0 auto 24px; display: block; padding: 12px 14px; border: 1px solid #e9d6b1; border-radius: 10px; background: #fffaf2; color: #72562c; font-size: 11px; line-height: 1.6; box-shadow: 0 8px 22px rgba(160, 123, 26, .04); }
+.scope-banner strong { font-weight: 800; }
+.status-grid { max-width: 1180px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.status-card { border: 1px solid #e6ebf1; border-radius: 12px; background: #fff; padding: 14px 14px 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 6px; }
+.status-card.secure { border-color: #dbeee6; background: linear-gradient(180deg, #f8fffb, #ffffff); }
+.status-card.planned { border-color: #f0debb; background: linear-gradient(180deg, #fffaf3, #ffffff); }
+.status-kicker { font: 700 9px/1.2 'DM Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: #73829a; }
+.status-card strong { color: #24394f; font-size: 13px; line-height: 1.4; }
+.status-card small { color: #718097; font-size: 10px; line-height: 1.5; }
 .eyebrow, .step-label { color: var(--blue); font: 500 10px/1.4 'DM Mono', monospace; letter-spacing: .12em; }
 .eyebrow { display: flex; align-items: center; gap: 9px; }
 .eyebrow-line { width: 19px; height: 1px; background: var(--blue); }

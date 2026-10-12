@@ -30,6 +30,34 @@
           <p class="intro-copy">Review Terraform changes, trace downstream impact, and get evidence-backed risks before deployment.</p>
         </section>
 
+        <aside class="scope-banner" aria-label="Current project scope">
+          <strong>Current scope:</strong>
+          Deterministic Terraform plan analysis only. Not implemented yet: LLM analysis, runbook/incident retrieval, persistence, authentication, sandbox deployments, telemetry verification, or production write access. This repo does not predict actual failure probability or apply infrastructure changes.
+        </aside>
+
+        <section class="status-grid" aria-label="Secure project status">
+          <article class="status-card secure">
+            <span class="status-kicker">Local persistence</span>
+            <strong>Browser-saved drafts</strong>
+            <small>Last plan payload is stored locally in the browser only; no server-side data retention or auth is enabled.</small>
+          </article>
+          <article class="status-card planned">
+            <span class="status-kicker">Identity gating</span>
+            <strong>Planned, not active</strong>
+            <small>Authentication and session validation are intentionally deferred until a strict security review is complete.</small>
+          </article>
+          <article class="status-card planned">
+            <span class="status-kicker">Sandbox verification</span>
+            <strong>Disabled by policy</strong>
+            <small>Deployment simulation and privileged execution remain out of scope for this read-only analysis environment.</small>
+          </article>
+          <article class="status-card secure">
+            <span class="status-kicker">Write controls</span>
+            <strong>Read-only by design</strong>
+            <small>All actions in this project are evidence gathering and risk review; no production changes are applied.</small>
+          </article>
+        </section>
+
         <section class="workspace" aria-label="Terraform plan analysis">
           <aside class="input-panel">
             <div class="panel-heading">

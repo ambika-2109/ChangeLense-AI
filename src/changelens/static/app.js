@@ -8,6 +8,26 @@ const reportState = $("#report-state");
 const fileInput = $("#plan-file");
 const dropzone = $("#dropzone");
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const LAST_PLAN_KEY = "changelens-last-plan-v1";
+
+function loadLocalPlan() {
+  try {
+    const raw = window.localStorage.getItem(LAST_PLAN_KEY);
+    if (!raw) return;
+    planInput.value = raw;
+    setFeedback("Local draft restored");
+  } catch {
+    // Ignore storage access failures in restricted browsers.
+  }
+}
+
+function saveLocalPlan() {
+  try {
+    window.localStorage.setItem(LAST_PLAN_KEY, planInput.value);
+  } catch {
+    // Ignore storage access failures in restricted browsers.
+  }
+}
 
 function node(tag, className, text) {
   const element = document.createElement(tag);
@@ -238,6 +258,7 @@ async function readPlanFile(file) {
     JSON.parse(text);
     planInput.value = text;
     $("#file-name").textContent = file.name;
+    saveLocalPlan();
     setFeedback("File loaded · submit when ready");
     showToast(`JSON uploaded: ${file.name}`);
   } catch {
@@ -321,6 +342,8 @@ for (const eventName of ["dragleave", "drop"]) {
   });
 }
 dropzone.addEventListener("drop", (event) => readPlanFile(event.dataTransfer.files[0]));
+planInput.addEventListener("input", saveLocalPlan);
 
 checkHealth();
+loadLocalPlan();
 loadExample($("#example-select").value);

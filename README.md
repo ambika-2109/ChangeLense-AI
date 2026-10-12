@@ -13,7 +13,7 @@ Implemented:
 - Deterministic policies for deletion, replacement, common public exposure values, explicit encryption disablement, and decreased database connection limits.
 - Structured report schema, FastAPI endpoint, interactive browser dashboard, CLI, fixtures, and tests.
 
-Not implemented yet: LLM analysis, runbook/incident retrieval, persistence, authentication, sandbox deployments, telemetry verification, or production write access. This repository does not claim to predict actual failure probability or to apply infrastructure changes.
+Not implemented yet: LLM analysis, runbook/incident retrieval, persistence, authentication, sandbox deployments, telemetry verification, or production write access. This repository does not claim to predict actual failure probability or to apply infrastructure changes. The current implementation is intentionally read-only, deterministic, and approval-gated: it analyzes Terraform plans and surfaces evidence-backed risk signals without mutating infrastructure or invoking external privileged systems.
 
 ## Requirements and setup
 
