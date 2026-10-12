@@ -15,6 +15,19 @@ Implemented:
 
 Not implemented yet: LLM analysis, runbook/incident retrieval, persistence, authentication, sandbox deployments, telemetry verification, or production write access. This repository does not claim to predict actual failure probability or to apply infrastructure changes. The current implementation is intentionally read-only, deterministic, and approval-gated: it analyzes Terraform plans and surfaces evidence-backed risk signals without mutating infrastructure or invoking external privileged systems.
 
+Current project scope:
+- Deterministic Terraform plan analysis only.
+- Local browser-saved drafts are allowed for convenience, but there is no server-side persistence, auth, or user account model.
+- Authentication, identity gating, and telemetry verification are planned but intentionally disabled.
+- Sandbox validation and deployment simulation remain out of scope for this read-only environment.
+- This project never applies infrastructure changes and never claims actual risk probability; it surfaces structured, evidence-backed signals for human review.
+
+## UI screenshots
+
+![ChangeLens dashboard overview](docs/images/ui-dashboard.png)
+
+![ChangeLens dashboard in a narrower viewport](docs/images/ui-dashboard-narrow.png)
+
 ## Requirements and setup
 
 - Python 3.11 or newer
