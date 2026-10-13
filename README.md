@@ -24,7 +24,6 @@ Current project scope:
 
 ## UI screenshots
 
-![ChangeLens dashboard overview](docs/images/ui-dashboard.png)
 
 ![ChangeLens dashboard in a narrower viewport](docs/images/ui-dashboard-narrow.png)
 
